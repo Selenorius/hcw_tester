@@ -605,8 +605,14 @@ class Exam {
             }
             else {
                 if(lim != vb.size()) {
-                    SetConsoleTextAttribute(hConsole, 5);
-                    cerr << "Failed to build Question!" << endl;
+                    SetConsoleTextAttribute(hConsole, 4);
+                    cerr << "Failed to build Question: " << endl
+                    << tab() << text << endl << endl 
+                    << tab() << "Vector value mismatch!" << endl << endl;
+                    
+                    for(int i = 0; i < min(vs.size(), vb.size()); ++i) cerr << vs.at(i) << endl << vb.at(i) << endl;
+                    
+                    cerr << endl;
 
                     return;
                 }
@@ -826,8 +832,13 @@ class Tester {
 vector<Topic> init() {
     vector<Topic> topics;
     vector<Exam> exams;
+    vector<vector<string>> question_texts;
+    vector<bool> question_vals;
+    vector<string> question_text;
+    bool question_val;
     path t_path, e_path;
-    string ts_path, es_path;
+    string ts_path, es_path, line, text;
+    int layer = 0, type;
 
     for (const auto & t : directory_iterator("topics")) {
         t_path = t.path();
@@ -838,7 +849,124 @@ vector<Topic> init() {
             es_path = e_path.string().substr(8 + ts_path.length());
             es_path.erase(es_path.end() -4, es_path.end());
 
+            ifstream infile(e_path);
+
             Exam exam{es_path};
+
+            while (getline(infile, line)) {
+                 switch (layer) {
+                    case 1:
+                        if(line.find("{") != std::string::npos) {
+                            text = "";
+                            type = 0;
+                            question_texts = {};
+                            question_vals = {};
+
+                            ++layer;
+                        }
+                        else if(line.find("}") != std::string::npos) {
+                            --layer;
+                        }
+
+                        break;
+
+                    case 2:
+                        if(line.find("{") != std::string::npos) {
+                            ++layer;
+                        }
+                        else if(line.find("}") != std::string::npos) {
+                            exam.add(text, question_texts, question_vals, type);
+
+                            --layer;
+                        }
+                        else if(line.find("\"") != std::string::npos) {
+                            text = line.substr(line.find_first_of("\"") + 1);
+                            text = text.substr(0, text.find_first_of("\""));
+                        }
+                        else if(!line.empty()) {
+                            lowercase(line);
+                            trim(line);
+
+                            if(line.find("alt") != std::string::npos) type = -1;
+                            else if(line.find("regular") != std::string::npos) type = 0;
+                            else if(line.find("no_opt") != std::string::npos) type = 1;
+                            else if(line.find("no_ans") != std::string::npos) type = 2;
+                            else if(line.find("no_ans_no_grade") != std::string::npos) type = 3;
+
+                            /* Question Build Output
+                            SetConsoleTextAttribute(hConsole, 15);
+                            cout << text << endl;
+                            for(vector<string> vs : question_texts) {
+                                cout << vs << endl;
+                            }
+                            for(bool b : question_vals) {
+                                cout << b << endl;
+                            }
+                            cout << endl <<
+                            type << endl << endl << endl;
+                            */
+                        }
+                        /* Question Build Output
+                        else {
+                            SetConsoleTextAttribute(hConsole, 15);
+                            cout << text << endl <<
+                            type << endl << endl << endl;
+                        }
+                        */
+
+                        break;
+
+                    case 3:
+                        if(line.find("{") != std::string::npos) {
+                            question_text = {};
+
+                            ++layer;
+                        }
+                        else if(line.find("}") != std::string::npos) {
+                            --layer;
+                        }
+                        else if(!line.empty()) {
+                            lowercase(line);
+                            trim(line);
+
+                            if(line == "true" || line == "1") {
+                                question_vals.push_back(1);
+                            }
+                            else if(line == "false" || line == "0") {
+                                question_vals.push_back(0);
+                            }
+                        }
+
+                        break;
+
+                    case 4:
+                        if(line.find("}") != std::string::npos) {
+                            question_texts.push_back(question_text);
+
+                            --layer;
+                        }
+                        else if(line.find("\"") != std::string::npos) {
+                            line = line.substr(line.find_first_of("\"") + 1);
+                            line = line.substr(0, line.find_first_of("\""));
+                            question_text.push_back(line);
+                        }
+                        else if(line.find("mark_true") != std::string::npos) {
+                            question_text = question_text + mark_true;
+                        }
+                        else if(line.find("mark_false") != std::string::npos) {
+                            question_text = question_text + mark_false;
+                        }
+
+                        break;
+
+                    default:
+                        if(line.find("{") != std::string::npos) ++layer;
+                        else if(line.find("}") != std::string::npos) --layer;
+
+                        break;
+                }
+            }
+
             exams.push_back(exam);
         }
 
@@ -901,177 +1029,7 @@ int main() {
             }, {});
     */
 
-    //EXAMS
-    Exam neta_net_recap("Networking Recap");
-    neta_net_recap.add("What does IETF stand for?", {
-        {"Internet Engineering Task Force"}
-    }, {1}, 1);
-    neta_net_recap.add("What does RFC stand for?", {
-        {"Request for Comments"}
-    }, {1}, 1);
-    neta_net_recap.add("Who publishes the RFC?", {
-        {"Internet Engineering Task Force", "IETF"}
-    }, {1}, 1);
-    neta_net_recap.add("The Internet Engineering Task Force is an open global community of network designers, operators, vendors, and researchers producing technical specifications for the evolution of the Internet architecture and the smooth operation of the Internet.", {
-        {mark_true + ""},
-        {mark_false}
-    }, {1, 0}, -1);
-    neta_net_recap.add("List all Layers of the OSI Model in order:", {
-        {"Physical Layer", "Physical"},
-        {"Data Link Layer", "Data Link", "Link Layer", "Link"},
-        {"Network Layer", "Network"},
-        {"Transport Layer", "Transport"},
-        {"Session Layer", "Session"},
-        {"Presentation Layer", "Presentation"},
-        {"Application Layer", "Application"}
-    }, {1, 1, 1, 1, 1, 1, 1}, 1);
-    neta_net_recap.add("What is an IP Address?", {
-        {"Internet Protocol"},
-        {"A numeric label assigned to a Network Interface Controller (NIC)"},
-        {"A unique identifier in the network"}
-    });
-    neta_net_recap.add("Name 5 Application Layer Protocols:", {
-        {"DHCP", "FTP", "SMTP", "HTTP", "SSH", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2"},
-        {"HTTP", "DHCP", "FTP", "SMTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"},
-        {"FTP", "DHCP", "SMTP", "HTTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"},
-        {"DNS", "DHCP", "FTP", "SMTP", "HTTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"},
-        {"SMTP", "DHCP", "FTP", "HTTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"}
-    }, {1, 1, 1, 1, 1}, 1);
-    neta_net_recap.add("Name 2 Transport Layer Protocols:", {
-        {"TCP", "UDP", "RTP"},
-        {"UDP", "TCP", "RTP"}
-    }, {1, 1}, 1);
-    neta_net_recap.add("IP is a Network Layer Protocol.", {
-        {mark_true + ""},
-        {mark_false}
-    }, {1, 0}, -1);
-    neta_net_recap.add("Name 3 Network Layer Protocols:", {
-        {"IP", "ARP", "ICMP", "IGMP", "RARP"},
-        {"ARP", "ICMP", "IGMP", "RARP", "IP"},
-        {"ICMP", "IGMP", "RARP", "IP", "ARP"}
-    }, {1, 1, 1}, 1);
-    neta_net_recap.add("Which statement is true?", {
-        {"SSH operates on the Application and Transport Layer."},
-        {"SSH operates solely on the Application Layer."},
-        {"SSH operates solely on the Transport Layer."}
-    }, {1, 0, 0});
-    neta_net_recap.add("Which statement is true?", {
-        {"ARP operates on the Network and Data Link Layer."},
-        {"ARP operates solely on the Network Layer."},
-        {"ARP operates solely on the Data Link Layer."}
-    }, {1, 0, 0});
-    neta_net_recap.add("Name a physical Protocol:", {
-        {"Ethernet", "ALOHA", "CDMA", "GSM", "ISDN"}
-    }, {1}, 1);
-    neta_net_recap.add("Ethernet operates solely on the Physical Layer.", {
-        {mark_true},
-        {mark_false + "Ethernet operates on the Physical and Data Link Layer."}
-    }, {0, 1}, -1);
-    neta_net_recap.add("Name all elements of an IPv4 header:", {
-        {"IP Protocol Version Number", "IP Version", "IP version number", "Protocol version number"},
-        {"Header Length (Bytes)", "header length"},
-        {"Type of Service", "type of data", "data type", "service type"},
-        {"Total Datagram Length (Bytes)", "total datagram length", "datagram length", "length"},
-        {"16-Bit Identifier", "identifier"},
-        {"Flags"},
-        {"Fragment Offset", "offset"},
-        {"Time to Live", "ttl"},
-        {"Upper Layer Protocol to Deliver Payload to", "upper layer protocol", "upper protocol", "upper layer"},
-        {"Header Checksum", "checksum"},
-        {"32-Bit Source IP Address", "Source IP", "Source IP Address", "Source Address", "Source"},
-        {"32-Bit Destination IP Address", "Destination IP Address", "Destination IP", "Destination Address", "Destination"},
-        {"Options (If Any)"},
-        {"Data (Variable Length, Typically a TCP or UDP Segment)"}
-    }, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 1);
-    neta_net_recap.add("Private IP addresses are routed through the internet.", {
-        {mark_true},
-        {mark_false + "Public IP addresses are routed through the internet."}
-    }, {0, 1}, -1);
-    neta_net_recap.add("What is ARP?", {
-        {"Address Resolution Protocol (RFC 826)"},
-        {"Finds Ethernet (MAC) address of a local IP address"},
-        {"Host queries an address and the owner replies"},
-    });
-    neta_net_recap.add("What is ICMP?", {
-        {"Internet Control Message Protocol (RFC 792)"},
-        {"Used by hosts & routers to communicate network-level information"},
-        {"Error reporting: unreachable host, network, port, protocol"},
-        {"Echo request/reply (used by ping)"},
-        {"ICMP msgs carried in IP datagrams"}
-    });
-    neta_net_recap.add("What is DHCP?", {
-        {"Dynamic Host Configuration Protocol"},
-        {"Assigns a local IP address to a host"},
-        {"Gets host started by automatically configuring it"},
-        {"Host sends request to server, which grants a lease"},
-        {"Encapsulated in UDP datagram"}
-    });
-    neta_net_recap.add("IP addresses can be hard-coded or assigned through DHCP.", {
-        {mark_true + ""},
-        {mark_false}
-    }, {1, 0}, -1);
-    neta_net_recap.add("List all steps in a DHCP interaction in order:", {
-        {"Host broadcasts DHCP discover message", "DHCP discover message", "DHCP discover", "discover"},
-        {"DHCP server responds with DHCP offer message", "DHCP offer message", "DHCP offer", "offer"},
-        {"Host requests IP address with DHCP request message", "DHCP request message", "DHCP request", "request"},
-        {"DHCP server sends address with DHCP ack message", "DHCP ack message", "DHCP ack", "ack"}
-    }, {1, 1, 1, 1}, 1);
-
-    Exam neta_principles("Network Application Principles");
-    neta_principles.add("Which are characteristics of a network application?", {
-        {"Runs on different end systems"},
-        {"Runs only on servers"},
-        {"Communicates over networks"},
-        {"Runs on different core systems"},
-        {"Client-Server is a network application architecture"},
-        {"Peer-To-Peer is a network application architecture"}
-    }, {1, 0, 1, 0, 1, 1});
-
-    Exam neta_dns("DNS");
-
-    Exam neta_email("Email");
-
-    Exam neta_hhqf("HTTP, HTTP2, QUIC, FTP");
-
-    Exam neta_transport_layer("Transport Layer");
-
-    Exam neta_nat("NAT");
-
-    Exam neta_firewall("Firewall");
-
-    Exam neta_troubleshooting("Troubleshooting");
-
-    Exam neta_troubleshooting_tools("Troubleshooting Tools");
-
-    Exam neta_all = {"All", {
-        neta_net_recap,
-        neta_principles,
-        neta_dns,
-        neta_email,
-        neta_hhqf,
-        neta_transport_layer,
-        neta_nat,
-        neta_firewall,
-        neta_troubleshooting,
-        neta_troubleshooting_tools
-    }};
-
-    //FOLDERS
-    Topic neta("NETA", {
-        neta_all,
-        neta_net_recap,
-        neta_principles,
-        neta_dns,
-        neta_email,
-        neta_hhqf,
-        neta_transport_layer,
-        neta_nat,
-        neta_firewall,
-        neta_troubleshooting,
-        neta_troubleshooting_tools
-    });
-
-    //TESTERS
+    //TESTER
     Tester tester(init());
 
     //PROGRAM START

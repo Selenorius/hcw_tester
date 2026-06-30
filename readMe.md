@@ -14,10 +14,10 @@ Now open the textfile created in step 2 and add your questions in the following 
     "Question text"
     {
         {
-            "Option 1 text",
+            "Option 1 text"
             "Option 1 alternative text"
         }
-        true,
+        true
         {
             "Option 2 text"
         }
@@ -42,6 +42,7 @@ If **Type** is left empty it will be set to *REGULAR*.
 
 An **Option** has to contain an **Array** of any amount of **String** *text* and a **Boolean** of value *true* or *false*.
 
+For True/False Questions instead of **String** *text* use *mark_true, mark_false*. Append a **String** *text* if you want an alternative answer text.
 If **Boolean** is left empty it will be set to *false*.
 
 ### Step 3: Solve your exam
