@@ -30,7 +30,7 @@ Pick your **Topic**, then pick your **Exam**.
 
 Now you can solve your **Exam**!
 
-### HAVE FUN!
+HAVE FUN :)
 
 ## Help
 ### Commands
