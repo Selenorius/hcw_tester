@@ -11,19 +11,21 @@ Now open the textfile created in step 2 and add your questions in the following 
 
 ```json
 {
-    "Question text"
     {
+        "Question text"
         {
-            "Option 1 text"
-            "Option 1 alternative text"
+            {
+                "Option 1 text"
+                "Option 1 alternative text"
+            }
+            true
+            {
+                "Option 2 text"
+            }
+            false
         }
-        true
-        {
-            "Option 2 text"
-        }
-        false
+        REGULAR
     }
-    REGULAR
 }
 ```
 
