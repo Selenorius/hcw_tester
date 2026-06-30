@@ -13,8 +13,15 @@ Now open the textfile created in step 2 and add your questions in the following 
 {
     "Question text"
     {
-        {"Option 1 text", "Option 1 alternative text"} true
-        {"Option 2 text"} false
+        {
+            "Option 1 text",
+            "Option 1 alternative text"
+        }
+        true,
+        {
+            "Option 2 text"
+        }
+        false
     }
     Regular
 }
@@ -30,7 +37,7 @@ Pick your **Topic**, then pick your **Exam**.
 
 Now you can solve your **Exam**!
 
-HAVE FUN :)
+![Have Fun!](res/important_file.png)
 
 ## Help
 ### Commands
