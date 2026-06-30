@@ -31,8 +31,8 @@ A **Question** has to contain 1 **String** *text*, an **Array** of 1 **Option** 
 
 | Enum | Description | Value |
 |:--------------- |:-------------------------- |:----- |
-| REGULAR | Functions as normal | 0 |
 | ALT | Display Option alt text | -1 |
+| REGULAR | Functions as normal | 0 |
 | NO_OPT | Options hidden | 1 |
 | NO_ANS | Answers hidden | 2 |
 | NO_OPT_NO_GRADE | Options hidden, not graded | - |
