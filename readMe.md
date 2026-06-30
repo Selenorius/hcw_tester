@@ -13,16 +13,20 @@ Now open the textfile created in step 2 and add your questions in the following 
 
 ```json
 {
-    "Ready to start your exam?"
+    "Question text"
     {
-        {"Option 1", "Option 1 alternative text"} true
-        {"Option 2"} false
+        {"Option 1 text", "Option 1 alternative text"} true
+        {"Option 2 text"} false
     }
     Regular
 }
 ```
 
+A **Question** has to contain 1 **String** *text*, an **Array** of 1 **Option** per line and finally a **Type** e.g. *Regular*.
+
+An **Option** has to contain an **Array** of any amount of **String** *text* and a **Boolean** of value *true* or *false*.
+
 ## Help
 ### Commands
-[q] quit
-[r] back
+[q] = quit
+[r] = back
