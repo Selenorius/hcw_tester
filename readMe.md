@@ -22,11 +22,13 @@ Now open the textfile created in step 2 and add your questions in the following 
 }
 ```
 
-A **Question** has to contain 1 **String** *text*, an **Array** of 1 **Option** per line and finally a **Type** e.g. *Regular*.
+A **Question** has to contain 1 **String** *text*, an **Array** of 1 **Option** per line, repeated any amount of times and finally a **Type** e.g. *Regular*.
 
 An **Option** has to contain an **Array** of any amount of **String** *text* and a **Boolean** of value *true* or *false*.
 
 ## Help
 ### Commands
-[q] = quit
-[r] = back
+------------
+| Q | quit |
+| R | back |
+------------
