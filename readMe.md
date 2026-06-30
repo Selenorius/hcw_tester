@@ -30,7 +30,7 @@ Now open the textfile created in step 2 and add your questions in the following 
 A **Question** has to contain 1 **String** *text*, an **Array** of 1 **Option** per line, repeated any amount of times and finally a **Type**: *REGULAR, ALT, NO_OPT, NO_ANS, NO_OPT_NO_GRADE, NO_ANS_NO_GRADE*.
 
 | Enum | Description | Value |
-|:--------------- |:-------------------------- |:----- |
+|:--------------- |:-------------------------- |:-----:|
 | ALT | Display Option alt text | -1 |
 | REGULAR | Functions as normal | 0 |
 | NO_OPT | Options hidden | 1 |
