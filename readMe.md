@@ -38,7 +38,11 @@ A **Question** has to contain 1 **String** *text*, an **Array** of 1 **Option** 
 | NO_OPT_NO_GRADE | Options hidden, not graded | - |
 | NO_ANS_NO_GRADE | Answers hidden, not graded | 3 |
 
+If **Type** is left empty it will be set to *REGULAR*.
+
 An **Option** has to contain an **Array** of any amount of **String** *text* and a **Boolean** of value *true* or *false*.
+
+If **Boolean** is left empty it will be set to *false*.
 
 ### Step 3: Solve your exam
 Start **HCW Tester**, enter *yes, y, true, t* or the **Numbered Index** displayed before the **Option** to start or enter *no, n, false, f* or the **Numbered Index** to close the program.

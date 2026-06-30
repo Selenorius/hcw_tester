@@ -20,50 +20,256 @@
         {
             "Internet Engineering Task Force", "IETF"
         }
+        true
+    }
+    NO_OPT,
+    "The Internet Engineering Task Force is an open global community of network designers, operators, vendors, and researchers producing technical specifications for the evolution of the Internet architecture and the smooth operation of the Internet."
+    {
+        {
+            mark_true
+        }
+        true,
+        {
+            mark_false
+        }
+        false
+    }
+    ALT,
+    "List all Layers of the OSI Model in order:"
+    {
+        {
+            "Physical Layer",
+            "Physical"
+        }
+        true,
+        {
+            "Data Link Layer",
+            "Data Link",
+            "Link Layer",
+            "Link"
+        }
+        true,
+        {
+            "Network Layer",
+            "Network"
+        }
+        true,
+        {
+            "Transport Layer",
+            "Transport"
+        }
+        true,
+        {
+            "Session Layer",
+            "Session"
+        }
+        true,
+        {
+            "Presentation Layer",
+            "Presentation"
+        }
+        true,
+        {
+            "Application Layer",
+            "Application"
+        }
+        true
+    }
+    NO_OPT,
+    "What is an IP Address?", {
+        {
+            "Internet Protocol"
+        },
+        {
+            "A numeric label assigned to a Network Interface Controller (NIC)"
+        },
+        {
+            "A unique identifier in the network"
+        }
     },
-    neta_net_recap.add("The Internet Engineering Task Force is an open global community of network designers, operators, vendors, and researchers producing technical specifications for the evolution of the Internet architecture and the smooth operation of the Internet.", {
-        {mark_true + ""},
-        {mark_false}
-    }, {1, 0}, -1);
-    neta_net_recap.add("List all Layers of the OSI Model in order:", {
-        {"Physical Layer", "Physical"},
-        {"Data Link Layer", "Data Link", "Link Layer", "Link"},
-        {"Network Layer", "Network"},
-        {"Transport Layer", "Transport"},
-        {"Session Layer", "Session"},
-        {"Presentation Layer", "Presentation"},
-        {"Application Layer", "Application"}
-    }, {1, 1, 1, 1, 1, 1, 1}, 1);
-    neta_net_recap.add("What is an IP Address?", {
-        {"Internet Protocol"},
-        {"A numeric label assigned to a Network Interface Controller (NIC)"},
-        {"A unique identifier in the network"}
-    });
-    neta_net_recap.add("Name 5 Application Layer Protocols:", {
-        {"DHCP", "FTP", "SMTP", "HTTP", "SSH", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2"},
-        {"HTTP", "DHCP", "FTP", "SMTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"},
-        {"FTP", "DHCP", "SMTP", "HTTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"},
-        {"DNS", "DHCP", "FTP", "SMTP", "HTTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"},
-        {"SMTP", "DHCP", "FTP", "HTTP", "Telnet", "SFTP", "HTTPS", "BGP", "POP3", "IMAP", "SCP", "DNS", "BOOTP", "SNMP", "Syslog", "NTP", "RIP", "RIP2", "SSH"}
-    }, {1, 1, 1, 1, 1}, 1);
-    neta_net_recap.add("Name 2 Transport Layer Protocols:", {
-        {"TCP", "UDP", "RTP"},
-        {"UDP", "TCP", "RTP"}
-    }, {1, 1}, 1);
-    neta_net_recap.add("IP is a Network Layer Protocol.", {
-        {mark_true + ""},
-        {mark_false}
-    }, {1, 0}, -1);
-    neta_net_recap.add("Name 3 Network Layer Protocols:", {
-        {"IP", "ARP", "ICMP", "IGMP", "RARP"},
-        {"ARP", "ICMP", "IGMP", "RARP", "IP"},
-        {"ICMP", "IGMP", "RARP", "IP", "ARP"}
-    }, {1, 1, 1}, 1);
-    neta_net_recap.add("Which statement is true?", {
-        {"SSH operates on the Application and Transport Layer."},
-        {"SSH operates solely on the Application Layer."},
-        {"SSH operates solely on the Transport Layer."}
-    }, {1, 0, 0});
+    "Name 5 Application Layer Protocols:", {
+        {
+            "DHCP",
+            "FTP",
+            "SMTP",
+            "HTTP",
+            "SSH",
+            "Telnet",
+            "SFTP",
+            "HTTPS",
+            "BGP",
+            "POP3",
+            "IMAP",
+            "SCP",
+            "DNS",
+            "BOOTP",
+            "SNMP",
+            "Syslog",
+            "NTP",
+            "RIP",
+            "RIP2"
+        }
+        true,
+        {
+            "HTTP",
+            "DHCP",
+            "FTP",
+            "SMTP",
+            "Telnet",
+            "SFTP",
+            "HTTPS",
+            "BGP",
+            "POP3",
+            "IMAP",
+            "SCP",
+            "DNS",
+            "BOOTP",
+            "SNMP",
+            "Syslog",
+            "NTP",
+            "RIP",
+            "RIP2",
+            "SSH"
+        }
+        true,
+        {
+            "FTP",
+            "DHCP",
+            "SMTP",
+            "HTTP",
+            "Telnet",
+            "SFTP",
+            "HTTPS",
+            "BGP",
+            "POP3",
+            "IMAP",
+            "SCP",
+            "DNS",
+            "BOOTP",
+            "SNMP",
+            "Syslog",
+            "NTP",
+            "RIP",
+            "RIP2",
+            "SSH"
+        }
+        true,
+        {
+            "DNS",
+            "DHCP",
+            "FTP",
+            "SMTP",
+            "HTTP",
+            "Telnet",
+            "SFTP",
+            "HTTPS",
+            "BGP",
+            "POP3",
+            "IMAP",
+            "SCP",
+            "BOOTP",
+            "SNMP",
+            "Syslog",
+            "NTP",
+            "RIP",
+            "RIP2",
+            "SSH"
+        }
+        true,
+        {
+            "SMTP",
+            "DHCP",
+            "FTP",
+            "HTTP",
+            "Telnet",
+            "SFTP",
+            "HTTPS",
+            "BGP",
+            "POP3",
+            "IMAP",
+            "SCP",
+            "DNS",
+            "BOOTP",
+            "SNMP",
+            "Syslog",
+            "NTP",
+            "RIP",
+            "RIP2",
+            "SSH"
+        }
+        true
+    }
+    NO_OPT,
+    "Name 2 Transport Layer Protocols:"
+    {
+        {
+            "TCP",
+            "UDP",
+            "RTP"
+        }
+        true,
+        {
+            "UDP",
+            "TCP",
+            "RTP"
+        }
+        true
+    }
+    NO_OPT,
+    "IP is a Network Layer Protocol.", {
+        {
+            mark_true
+        }
+        true,
+        {
+            mark_false
+        }
+        false
+    }
+    ALT,
+    "Name 3 Network Layer Protocols:"
+    {
+        {
+            "IP",
+            "ARP",
+            "ICMP",
+            "IGMP",
+            "RARP"
+        }
+        true,
+        {
+            "ARP",
+            "ICMP",
+            "IGMP",
+            "RARP",
+            "IP"
+        }
+        true,
+        {
+            "ICMP",
+            "IGMP",
+            "RARP",
+            "IP",
+            "ARP"
+        }
+        true
+    }
+    NO_OPT,
+    "Which statement is true?"
+    {
+        {
+            "SSH operates on the Application and Transport Layer."
+        }
+        true,
+        {
+            "SSH operates solely on the Application Layer."
+        }
+        false,
+        {
+            "SSH operates solely on the Transport Layer."
+        }
+        false
+    },
     neta_net_recap.add("Which statement is true?", {
         {"ARP operates on the Network and Data Link Layer."},
         {"ARP operates solely on the Network Layer."},
