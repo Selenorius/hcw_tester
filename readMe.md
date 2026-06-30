@@ -1,5 +1,5 @@
 # HCW Tester
-Create and solve tests to study for your sexams.
+Create and solve tests to study for your exams.
 
 ## Guide
 ### Step 1: Create a topic
