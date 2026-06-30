@@ -25,7 +25,7 @@ A **Question** has to contain 1 **String** *text*, an **Array** of 1 **Option** 
 An **Option** has to contain an **Array** of any amount of **String** *text* and a **Boolean** of value *true* or *false*.
 
 ### Step 3: Solve your exam
-Start **HCW Tester**, enter *yes, y, true, t* or the **Numbered Index** displayed before the **Option** to start or enter *no, n, false, f* to close the program.
+Start **HCW Tester**, enter *yes, y, true, t* or the **Numbered Index** displayed before the **Option** to start or enter *no, n, false, f* or the **Numbered Index** to close the program.
 Pick your **Topic**, then pick your **Exam**.
 
 Now you can solve your **Exam**!
@@ -34,7 +34,7 @@ Now you can solve your **Exam**!
 
 ## Help
 ### Commands
-------------
-| Q | quit |
-| R | back |
-------------
+| Key | Command |
+|:---:|:------- |
+| Q   | quit    |
+| R   | back    |
