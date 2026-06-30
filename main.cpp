@@ -7,10 +7,12 @@
 #include <ctime>
 #include <iterator>
 #include <fstream>
+#include <filesystem>
 
 #include <windows.h>
 
 using namespace std;
+using namespace std::filesystem;
 
 /*
     Decription: Create and solve your own questions to prepare for exams.
@@ -44,7 +46,7 @@ Iter random_select(Iter start, Iter end, RandomGenerator& g) {
     return start;
 }
 
-//FUNCTIONS
+//FUNCTIONS 1
 string tab(int i = 1) {
     string s = "";
 
@@ -761,7 +763,6 @@ class Tester {
     public:
         //CONSTRUCTORS
         Tester(const vector<Topic>& vf) : topics(vf) {};
-        Tester() {};
 
         //FUNCTIONS
         void add(const Topic& f) {
@@ -820,6 +821,33 @@ class Tester {
             return 0;
         }
 };
+
+//FUNCTIONS 2
+vector<Topic> init() {
+    vector<Topic> topics;
+    vector<Exam> exams;
+    path t_path, e_path;
+    string ts_path, es_path;
+
+    for (const auto & t : directory_iterator("topics")) {
+        t_path = t.path();
+        ts_path = t_path.string().substr(7);
+
+        for (const auto & e : directory_iterator(t_path)) {
+            e_path = e.path();
+            es_path = e_path.string().substr(8 + ts_path.length());
+            es_path.erase(es_path.end() -4, es_path.end());
+
+            Exam exam{es_path};
+            exams.push_back(exam);
+        }
+
+        Topic topic{ts_path, exams};
+        topics.push_back(topic);
+    }
+
+    return topics;
+}
 
 int main() {
     //CONSTANTS 1
@@ -1044,9 +1072,7 @@ int main() {
     });
 
     //TESTERS
-    Tester tester({
-        neta
-    });
+    Tester tester(init());
 
     //PROGRAM START
     SetConsoleTextAttribute(hConsole, 5);
